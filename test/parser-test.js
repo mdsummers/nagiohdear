@@ -40,5 +40,11 @@ vows.describe("Parser")
         assert.equal(JSON.stringify(nagiohdear.parser.parse(config)), JSON.stringify([]));
       },
     },
+    "No space between definition type and curly brace": {
+      topic: "define x{\n  y1 z1 ; a1\n  y2 z2 ; a2\n}",
+      "should parse without an error": function(config) {
+        assert.equal(JSON.stringify(nagiohdear.parser.parse(config)), JSON.stringify([{name: "x", lines: [{name: "y1", value: "z1", comment: "a1"}, {name: "y2", value: "z2", comment: "a2"}]}]));
+      },
+    },
   })
 .export(module);
